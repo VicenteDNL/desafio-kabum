@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  desafio-server:
+    build:
+      context: ./
+      dockerfile: ./.docker/server/Dockerfile
+    image: desafio-server
+    container_name: desafio-server
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www
+      - ./.docker/server/config:/etc/nginx/conf.d
+    depends_on:
+      - desafio-api
+    restart: unless-stopped
+    networks:
+      - desafio-kabum
+  desafio-api:
+    build:
+      context: ./
+      dockerfile: ./.docker/portal-api/Dockerfile
+    image: desafio-api
+    container_name: desafio-api
+    volumes:
+      - ./:/var/www
+    restart: unless-stopped
+    networks:
+      - desafio-kabum
+networks:
+  desafio-kabum:
+    driver: bridge

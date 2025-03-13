@@ -1,0 +1,18 @@
+{
+    "[php]": {
+        "editor.formatOnSave": false,
+    },
+    "emeraldwalk.runonsave" :{
+        "commands": [
+            {
+                "match": "\\.php$",
+                "isAsync": false,
+                //Windows
+                // "cmd": "${workspaceFolder}\\.php-cs-fixer\\vendor\\bin\\php-cs-fixer fix ${file} --config ${workspaceFolder}\\.php-cs-fixer\\.php-cs-fixer.php"
+                //Linux
+                "cmd": "${workspaceFolder}/.php-cs-fixer/vendor/bin/php-cs-fixer fix ${file} --config ${workspaceFolder}/.php-cs-fixer/.php-cs-fixer.php"
+
+            },
+        ]
+    }
+}

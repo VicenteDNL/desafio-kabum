@@ -1,0 +1,19 @@
+{
+    "name": "danilo/desafio-kabum",
+    "description": "Projeto Desenvolvido para o processo seletivo Desenvolvedor(a) Fullstack SR na Kabum",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DesafioKabum\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Danilo",
+            "email": "danilo.saraiva68@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
