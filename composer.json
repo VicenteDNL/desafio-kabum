@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "DesafioKabum\\": "src/"
+            "App\\": "src/",
+            "Bootstrap\\": "bootstrap/"
         }
     },
     "authors": [
