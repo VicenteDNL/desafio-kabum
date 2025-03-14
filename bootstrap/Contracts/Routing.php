@@ -2,6 +2,8 @@
 
 namespace Bootstrap\Contracts;
 
+use Closure;
+
 /**
  * Interface Routing
  *
@@ -27,10 +29,10 @@ interface Routing
     public static function add(string $method, string $path, callable $handler): void;
 
     /**
-     * Sends the request to the corresponding handler based on the provided HTTP method and URI.
+     * Return the corresponding handler based on the provided HTTP method and URI.
      *
      * @param string $method HTTP method of the request.
      * @param string $uri    URI of the request.
      */
-    public function dispatch(string $method, string $uri): void;
+    public function handler(string $method, string $uri): Closure;
 }
