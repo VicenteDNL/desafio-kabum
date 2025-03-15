@@ -7,7 +7,7 @@ namespace Bootstrap\Contracts;
  *
  * Represents a route registered in the application
  */
-interface Router
+interface Route
 {
     /**
      * HTTP method associated with the route (e.g. GET, POST).
@@ -28,4 +28,9 @@ interface Router
      * Method of the controller to be triggered
      */
     public function action(): string;
+
+    /**
+     * List of route protection guard
+     */
+    public function guards(): array;
 }

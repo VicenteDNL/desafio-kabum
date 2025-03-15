@@ -2,21 +2,23 @@
 
 namespace  Bootstrap\Modules\Routing\Resources;
 
-use Bootstrap\Contracts\Router as ContractsRouter;
+use Bootstrap\Contracts\Route as ContractsRoute;
 
-class Router implements ContractsRouter
+class Route implements ContractsRoute
 {
     private string $method;
     private string $path;
     private string $controller;
     private string $action;
+    private array $guards;
 
-    public function __construct(string $method, string $path, string $controller, string $action)
+    public function __construct(string $method, string $path, string $controller, string $action, array $guards = [])
     {
         $this->method = $method;
         $this->path = $path;
         $this->controller = $controller;
         $this->action = $action;
+        $this->guards = $guards;
     }
 
     public function method(): string
@@ -37,5 +39,10 @@ class Router implements ContractsRouter
     public function action(): string
     {
         return $this->action;
+    }
+
+    public function guards(): array
+    {
+        return $this->guards;
     }
 }

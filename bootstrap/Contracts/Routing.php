@@ -2,6 +2,8 @@
 
 namespace Bootstrap\Contracts;
 
+use Closure;
+
 /**
  * Interface Routing
  *
@@ -28,10 +30,17 @@ interface Routing
     public static function add(string $method, string $path, string $controller, string $action): void;
 
     /**
-     * Return the corresponding route based on the provided HTTP method and URI.
+     * Register routes protected by a Guard
      *
-     * @param string $method HTTP method of the request.
-     * @param string $uri    URI of the request.
+     * @param array   $aliases     The Aliase guard
+     * @param Closure $groupRoutes Closure containing the call to the route registry
      */
-    public function getRoute(string $method, string $uri): Router;
+    public static function guard(array $aliases, Closure $groupRoutes): void;
+
+    /**
+     * Return the corresponding Route based on the  HTTP Request.
+     *
+     * @param Request $request HTTP Request
+     */
+    public function find(Request $request): Route;
 }

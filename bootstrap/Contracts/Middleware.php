@@ -19,7 +19,8 @@ interface Middleware
     public static function init(string $stacker): Middleware;
 
     /**
-     * start of the execution flow of registered middleware
+     * Start of the execution flow of registered middleware
+     *
      * @param Request $request Request HTTP
      * @param Closure $handle  Action protected by middleware
      */

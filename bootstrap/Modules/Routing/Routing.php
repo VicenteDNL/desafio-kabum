@@ -3,20 +3,23 @@
 namespace Bootstrap\Modules\Routing;
 
 use Bootstrap\Contracts\Controller;
-use Bootstrap\Contracts\Router as ContractsRouter;
+use Bootstrap\Contracts\Request;
+use Bootstrap\Contracts\Route as ContractsRoute;
 use Bootstrap\Contracts\Routing as ContractsRouting;
 use Bootstrap\Modules\Routing\Exceptions\RouteNotFound;
 use Bootstrap\Modules\Routing\Exceptions\RouterActionNotExist;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerIsNotInstance;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerNotExist;
-use Bootstrap\Modules\Routing\Resources\Router;
+use Bootstrap\Modules\Routing\Resources\Route;
+use Closure;
 
 class Routing implements ContractsRouting
 {
     private static Routing $instance;
 
-    /** @var ContractsRouter[] $routes */
+    /** @var ContractsRoute[] $routes */
     private static array $routes = [];
+    private static array $guardsMemory = [];
 
     private function __construct(string $routesPath)
     {
@@ -35,19 +38,38 @@ class Routing implements ContractsRouting
 
     public static function add(string $method, string $path, string $controller, string $action): void
     {
-        self::$routes[] = new Router(
+        self::$routes[] = new Route(
             strtoupper($method),
             $path,
             $controller,
-            $action
+            $action,
+            self::$guardsMemory
         );
 
     }
 
-    public function getRoute(string $method, string $uri): Router
+    public static function guard(array $aliases, Closure $groupRoutes): void
+    {
+        self::openGroup($aliases);
+        $groupRoutes();
+        self::closeGroup();
+        return;
+    }
+
+    private static function openGroup(array $aliases)
+    {
+        self::$guardsMemory = $aliases;
+    }
+
+    private static function closeGroup()
+    {
+        self::$guardsMemory = [];
+    }
+
+    public function find(Request $request): Route
     {
         foreach (self::$routes as $route) {
-            if ($route->method() === strtoupper($method) && $this->matchRouter($route->path(), $uri)) {
+            if ($route->method() === strtoupper($request->getMethod()) && $this->matchRouter($route->path(), $request->getPath())) {
 
                 if(!class_exists($route->controller())) {
                     throw new RouterControllerNotExist();
