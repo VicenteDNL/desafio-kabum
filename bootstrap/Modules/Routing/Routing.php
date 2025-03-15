@@ -2,13 +2,20 @@
 
 namespace Bootstrap\Modules\Routing;
 
+use Bootstrap\Contracts\Controller;
+use Bootstrap\Contracts\Router as ContractsRouter;
 use Bootstrap\Contracts\Routing as ContractsRouting;
 use Bootstrap\Modules\Routing\Exceptions\RouteNotFound;
-use Closure;
+use Bootstrap\Modules\Routing\Exceptions\RouterActionNotExist;
+use Bootstrap\Modules\Routing\Exceptions\RouterControllerIsNotInstance;
+use Bootstrap\Modules\Routing\Exceptions\RouterControllerNotExist;
+use Bootstrap\Modules\Routing\Resources\Router;
 
 class Routing implements ContractsRouting
 {
     private static Routing $instance;
+
+    /** @var ContractsRouter[] $routes */
     private static array $routes = [];
 
     private function __construct(string $routesPath)
@@ -26,20 +33,35 @@ class Routing implements ContractsRouting
         return self::$instance;
     }
 
-    public static function add(string $method, string $path, callable $handler): void
+    public static function add(string $method, string $path, string $controller, string $action): void
     {
-        self::$routes[] = [
-            'method'  => strtoupper($method),
-            'path'    => $path,
-            'handler' => $handler,
-        ];
+        self::$routes[] = new Router(
+            strtoupper($method),
+            $path,
+            $controller,
+            $action
+        );
+
     }
 
-    public function handler(string $method, string $uri): Closure
+    public function getRoute(string $method, string $uri): Router
     {
         foreach (self::$routes as $route) {
-            if ($route['method'] === strtoupper($method) && $this->matchRouter($route['path'], $uri)) {
-                return $route['handler'];
+            if ($route->method() === strtoupper($method) && $this->matchRouter($route->path(), $uri)) {
+
+                if(!class_exists($route->controller())) {
+                    throw new RouterControllerNotExist();
+                }
+
+                if($route->controller() instanceof Controller) {
+                    throw new RouterControllerIsNotInstance();
+                }
+
+                if(!method_exists($route->controller(), $route->action())) {
+                    throw new RouterActionNotExist();
+                }
+
+                return $route;
             }
         }
         throw new RouteNotFound();

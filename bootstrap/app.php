@@ -36,8 +36,13 @@ class Application
 
     public function dispath(): Response
     {
-        $this->routing->dispatch($this->request->getMethod(), $this->request->getPath());
+        $route = $this->routing->getRoute($this->request->getMethod(), $this->request->getPath());
+        $controller = new ($route->controller())($this->request);
+        $action = $route->action();
+        $result = $controller->$action();
+
         return new ResponseResponse();
+
     }
 
     private function initRequest(): void
