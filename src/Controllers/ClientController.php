@@ -4,11 +4,17 @@ namespace App\Controllers;
 
 use Bootstrap\Modules\Controller\Controller;
 
+/**
+ * TODO: verifica para que a chamada nao seja feito direto de uma classe do modulo (remover aclopamento)
+ */
+use Bootstrap\Modules\Response\Response;
+
 class ClientController extends Controller
 {
     public function index()
     {
-        var_dump('index');
+
+        return Response::json(['status' => 'success', 'data' => 'index']);
     }
 
     public function show($id)
