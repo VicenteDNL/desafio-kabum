@@ -51,5 +51,12 @@ interface Request
      * @param  mixed  $default Default value to be returned if the parameter is not found.
      * @return mixed  The requested parameter value or the default value if none exists.
      */
-    public function getParam(string $name, $default = null);
+    public function getParam(string $name, $default = null): mixed;
+
+    /**
+     * The Client response format
+     *
+     * @return mixed The http accept formart
+     */
+    public function getHttpAccept(): string;
 }

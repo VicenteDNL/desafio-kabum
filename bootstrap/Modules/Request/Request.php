@@ -11,6 +11,7 @@ class Request implements ContractsRequest
     private string $path;
     private array $queryParams;
     private array $bodyParams;
+    private string $accept;
 
     private function __construct()
     {
@@ -18,6 +19,7 @@ class Request implements ContractsRequest
         $this->path = $this->extractPath();
         $this->queryParams = $_GET;
         $this->bodyParams = $this->extractBodyParams();
+        $this->accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/html';
 
     }
 
@@ -51,9 +53,14 @@ class Request implements ContractsRequest
         return $this->bodyParams;
     }
 
-    public function getParam(string $name, $default = null)
+    public function getParam(string $name, $default = null): mixed
     {
         return $this->queryParams[$name] ?? $this->bodyParams[$name] ?? $default;
+    }
+
+    public function getHttpAccept(): string
+    {
+        return $this->accept;
     }
 
     private function extractPath(): string
