@@ -3,6 +3,7 @@
 namespace Bootstrap\Modules\Request;
 
 use Bootstrap\Contracts\Request as ContractsRequest;
+use Bootstrap\Modules\Request\Exceptions\BadRequest;
 
 class Request implements ContractsRequest
 {
@@ -12,14 +13,16 @@ class Request implements ContractsRequest
     private array $queryParams;
     private array $bodyParams;
     private string $accept;
+    private string $contentType;
 
     private function __construct()
     {
         $this->method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $this->path = $this->extractPath();
         $this->queryParams = $_GET;
-        $this->bodyParams = $this->extractBodyParams();
         $this->accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/html';
+        $this->contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? 'multipart/form-data';
+        $this->bodyParams = $this->extractBodyParams();
 
     }
 
@@ -74,11 +77,19 @@ class Request implements ContractsRequest
     {
         $bodyParams = [];
 
-        if ($this->method === 'POST') {
-            $bodyParams = $_POST;
-        } elseif (in_array($this->method, ['PUT', 'DELETE', 'PATCH'])) {
+        if(str_contains($this->contentType, 'application/json')) {
+            $bodyParams = json_decode(file_get_contents('php://input'), true);
+
+        } elseif(str_contains($this->contentType, 'application/x-www-form-urlencoded')) {
             parse_str(file_get_contents('php://input'), $bodyParams);
+        } else {
+            if ($this->method === 'POST') {
+                $bodyParams = $_POST;
+            } else {
+                throw new BadRequest();
+            }
         }
+
         return $bodyParams;
     }
 }

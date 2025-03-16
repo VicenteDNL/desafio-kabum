@@ -11,5 +11,5 @@ Routing::guard(['auth'], function () {
 });
 Routing::add('GET', '/cliente/{id}', ClientController::class, 'show');
 Routing::add('POST', '/cliente', ClientController::class, 'store');
-Routing::add('DELETE', '/cliente/{id}', ClientController::class, 'delete');
+Routing::add('DELETE', '/cliente/{id}', ClientController::class, 'destroy');
 Routing::add('PUT', '/cliente/{id}', ClientController::class, 'update');

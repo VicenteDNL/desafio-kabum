@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Client;
 use Bootstrap\Modules\Controller\Controller;
 
 /**
@@ -14,26 +15,45 @@ class ClientController extends Controller
     public function index()
     {
 
-        return Response::json(['status' => 'success', 'data' => 'index']);
+        return Response::json(['status' => 'success', 'data' => Client::all()]);
     }
 
     public function show($id)
     {
-        var_dump('show');
+        return Response::json(['status' => 'success', 'data' => Client::find($id)]);
     }
 
     public function store()
     {
-        var_dump('store');
+        $params = $this->request->getBodyParams();
+
+        $client = new Client();
+        $client->name = $params['name'];
+        $client->date_of_birth = $params['date_of_birth'];
+        $client->document = $params['document'];
+        $client->general_registration = $params['general_registration'];
+        $client->phone_number = $params['phone_number'];
+        $client->save();
+        return Response::json(['status' => 'success', 'data' => $client->toArray()]);
     }
 
-    public function update($request, $id)
+    public function update($id)
     {
-        var_dump('update');
+
+        $params = $this->request->getBodyParams();
+        $client = Client::find($id);
+        $client->name = $params['name'];
+        $client->date_of_birth = $params['date_of_birth'];
+        $client->document = $params['document'];
+        $client->general_registration = $params['general_registration'];
+        $client->phone_number = $params['phone_number'];
+        $client->save();
+        return Response::json(['status' => 'success', 'data' => $client->toArray()]);
+
     }
 
     public function destroy($id)
     {
-        var_dump('destroy');
+        return Response::json(['status' => 'success', 'data' => Client::destroy($id)]);
     }
 }
