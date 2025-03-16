@@ -27,6 +27,25 @@ services:
     restart: unless-stopped
     networks:
       - desafio-kabum
+  desafio-db:
+    build:
+      context: ./
+      dockerfile: ./.docker/database/Dockerfile
+    image: desafio-db
+    container_name: desafio-db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - desafio-db:/var/lib/mysql
+    networks:
+      - desafio-kabum
+volumes:
+  desafio-db:
 networks:
   desafio-kabum:
     driver: bridge
