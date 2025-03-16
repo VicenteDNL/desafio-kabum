@@ -40,9 +40,17 @@ interface Request
     /**
      * Gets the parameters from the request body.
      *
+     * @param  array $only List the parameters you want to be returned
      * @return array An associative array containing the data sent in the request body.
      */
-    public function getBodyParams(): array;
+    public function getBodyParams(array $only = []): array;
+
+    /**
+     * Gets the Authorization Token
+     *
+     * @return string The Authorization Token
+     */
+    public function getToken(): string;
 
     /**
      * Gets a specific parameter from the request, either from the query parameters or the body.

@@ -15,7 +15,7 @@ class AddressSeeder implements Seeder
 
         for ($i = 0; $i < 10; ++$i) {
 
-            Capsule::table('address')->insert([
+            Capsule::table('addresses')->insert([
                 'client_id'    => $faker->randomElement($clientIds),
                 'street'       => $faker->streetName,
                 'number'       => $faker->buildingNumber,

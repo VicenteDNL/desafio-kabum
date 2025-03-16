@@ -2,11 +2,13 @@
 
 namespace Bootstrap\Modules\Guardian;
 
+use Bootstrap\Contracts\Guard;
 use Bootstrap\Contracts\Guardian as ContractsGuardian;
 use Bootstrap\Contracts\Request;
 use Bootstrap\Contracts\Route;
-use Bootstrap\Modules\Guard\Exceptions\GuardAliaseNotFoud;
-use Bootstrap\Modules\Guard\Exceptions\GuardProtectedRoute;
+use Bootstrap\Modules\Guardian\Exceptions\GuardAliaseNotFoud;
+use Bootstrap\Modules\Guardian\Exceptions\GuardIsNotInstance;
+use Bootstrap\Modules\Guardian\Exceptions\GuardProtectedRoute;
 
 class Guardian implements ContractsGuardian
 {
@@ -42,7 +44,13 @@ class Guardian implements ContractsGuardian
                 throw new GuardAliaseNotFoud();
             }
 
-            $result = $this->guards[$aliase]::process($request);
+            $guard = new $this->guards[$aliase]();
+
+            if(!($guard instanceof Guard)) {
+                throw new GuardIsNotInstance();
+            }
+
+            $result = $guard->process($request);
 
             if($result) {
                 continue;

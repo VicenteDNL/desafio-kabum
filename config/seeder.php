@@ -1,9 +1,11 @@
 <?php
 
 use Seeders\AddressSeeder;
-use Seeders\ClientsSeeder;
+use Seeders\ClientSeeder;
+use Seeders\UserSeeder;
 
 return[
-    ClientsSeeder::class,
+    UserSeeder::class,
+    ClientSeeder::class,
     AddressSeeder::class,
 ];

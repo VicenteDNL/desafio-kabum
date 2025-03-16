@@ -2,10 +2,11 @@ FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     zip \
-    unzip 
+    unzip \
+    libsodium-dev
 
 RUN pecl install xdebug-3.3.1 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql sodium
 ADD ./.docker/portal-api/xdebug/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

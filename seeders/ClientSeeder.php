@@ -6,7 +6,7 @@ use Bootstrap\Contracts\Seeder;
 use Faker\Factory;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class ClientsSeeder implements Seeder
+class ClientSeeder implements Seeder
 {
     public function run(): void
     {

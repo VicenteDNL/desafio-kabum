@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Modules\Guard\Exceptions;
+namespace Bootstrap\Modules\Guardian\Exceptions;
 
 use Exception;
 

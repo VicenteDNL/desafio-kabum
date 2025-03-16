@@ -76,6 +76,7 @@ class Routing implements ContractsRouting
                     throw new RouterControllerNotExist();
                 }
 
+                //TODO: condicional invalido, ajustar preferencialmente para que o modulo do ROuting nao precisse iniciar uma instancia do controller para validar
                 if($route->controller() instanceof Controller) {
                     throw new RouterControllerIsNotInstance();
                 }

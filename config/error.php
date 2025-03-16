@@ -1,7 +1,8 @@
 <?php
 
-use Bootstrap\Modules\Guard\Exceptions\GuardAliaseNotFoud;
-use Bootstrap\Modules\Guard\Exceptions\GuardProtectedRoute;
+use Bootstrap\Modules\Guardian\Exceptions\GuardAliaseNotFoud;
+use Bootstrap\Modules\Guardian\Exceptions\GuardIsNotInstance;
+use Bootstrap\Modules\Guardian\Exceptions\GuardProtectedRoute;
 use Bootstrap\Modules\Routing\Exceptions\RouteNotFound;
 use Bootstrap\Modules\Routing\Exceptions\RouterActionNotExist;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerIsNotInstance;
@@ -14,6 +15,10 @@ return[
         'system' => '',
     ],
     GuardAliaseNotFoud::class => [
+        'human'  => '',
+        'system' => '',
+    ],
+    GuardIsNotInstance::class => [
         'human'  => '',
         'system' => '',
     ],

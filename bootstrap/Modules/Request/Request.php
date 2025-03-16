@@ -14,6 +14,7 @@ class Request implements ContractsRequest
     private array $bodyParams;
     private string $accept;
     private string $contentType;
+    private string $authorization;
 
     private function __construct()
     {
@@ -22,6 +23,7 @@ class Request implements ContractsRequest
         $this->queryParams = $_GET;
         $this->accept = $_SERVER['HTTP_ACCEPT'] ?? 'text/html';
         $this->contentType = $_SERVER['HTTP_CONTENT_TYPE'] ?? 'multipart/form-data';
+        $this->authorization = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
         $this->bodyParams = $this->extractBodyParams();
 
     }
@@ -51,9 +53,12 @@ class Request implements ContractsRequest
         return $this->queryParams;
     }
 
-    public function getBodyParams(): array
+    public function getBodyParams(array $only = []): array
     {
-        return $this->bodyParams;
+        if(empty($only)) {
+            return $this->bodyParams;
+        }
+        return array_intersect_key($this->bodyParams, array_flip($only));
     }
 
     public function getParam(string $name, $default = null): mixed
@@ -64,6 +69,11 @@ class Request implements ContractsRequest
     public function getHttpAccept(): string
     {
         return $this->accept;
+    }
+
+    public function getToken(): string
+    {
+        return str_replace('Bearer ', '', $this->authorization) ;
     }
 
     private function extractPath(): string

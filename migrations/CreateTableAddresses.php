@@ -5,11 +5,11 @@ namespace Migrations;
 use Bootstrap\Contracts\Migration;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class CreateTableAddress implements Migration
+class CreateTableAddresses implements Migration
 {
     public function up(): void
     {
-        Capsule::schema()->create('address', function ($table) {
+        Capsule::schema()->create('addresses', function ($table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->string('street');
