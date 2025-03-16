@@ -57,8 +57,9 @@ class Application
 
             $controller = new ($route->controller())($this->request);
             $action = $route->action();
-            $handler = function () use ($controller, $action) {
-                return $controller->$action();
+            $params = $route->params();
+            $handler = function () use ($controller, $action, $params) {
+                return $controller->$action(...$params);
             };
 
             $result = $this->middleware->start($this->request, $handler);
