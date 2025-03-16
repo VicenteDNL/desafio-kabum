@@ -33,4 +33,16 @@ interface Route
      * List of route protection guard
      */
     public function guards(): array;
+
+    /**
+     * Set list of route parameters
+     *
+     * @param array $params list of route parameters
+     */
+    public function setParams(array $params): void;
+
+    /**
+     * List of route parameters
+     */
+    public function params(): array;
 }

@@ -43,6 +43,7 @@ class Routing implements ContractsRouting
             $path,
             $controller,
             $action,
+            [],
             self::$guardsMemory
         );
 
@@ -82,7 +83,7 @@ class Routing implements ContractsRouting
                 if(!method_exists($route->controller(), $route->action())) {
                     throw new RouterActionNotExist();
                 }
-
+                $route->setParams($this->extractRouteParam($route->path(), $request->getPath()));
                 return $route;
             }
         }
@@ -110,6 +111,21 @@ class Routing implements ContractsRouting
     private function isRouteParam(string $uri)
     {
         return preg_match('/^\{.+\}$/', $uri);
+    }
+
+    private function extractRouteParam(string $route, string $uri)
+    {
+        $routeBlock = $this->demystifiesRoute($route);
+        $uriBlock = $this->demystifiesRoute($uri);
+
+        $result = [];
+
+        foreach($routeBlock as $key => $r) {
+            if($this->isRouteParam($r)) {
+                $result[trim($r, '{}')] = $uriBlock[$key];
+            }
+        }
+        return $result;
     }
 
     private function demystifiesRoute(string $uri)

@@ -11,14 +11,16 @@ class Route implements ContractsRoute
     private string $controller;
     private string $action;
     private array $guards;
+    private array $params;
 
-    public function __construct(string $method, string $path, string $controller, string $action, array $guards = [])
+    public function __construct(string $method, string $path, string $controller, string $action, array $params = [], array $guards = [])
     {
         $this->method = $method;
         $this->path = $path;
         $this->controller = $controller;
         $this->action = $action;
         $this->guards = $guards;
+        $this->params = $params;
     }
 
     public function method(): string
@@ -44,5 +46,15 @@ class Route implements ContractsRoute
     public function guards(): array
     {
         return $this->guards;
+    }
+
+    public function setParams(array $params): void
+    {
+        $this->params = $params;
+    }
+
+    public function params(): array
+    {
+        return $this->params;
     }
 }
