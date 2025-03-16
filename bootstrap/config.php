@@ -2,7 +2,7 @@
 
 namespace Bootstrap;
 
-use Bootstrap\Modules\Guard\Guard;
+use Bootstrap\Modules\Guardian\Guardian;
 use Bootstrap\Modules\HandleError\HandleError;
 use Bootstrap\Modules\Middleware\Middleware;
 use Bootstrap\Modules\Request\Request;
@@ -21,9 +21,9 @@ return [
         'module'  => Middleware::class,
         'stacker' => __DIR__ . '/../config/middleware.php',
     ],
-    'guard'  => [
-        'module'  => Guard::class,
-        'stacker' => __DIR__ . '/../config/guard.php',
+    'guardian'  => [
+        'module'  => Guardian::class,
+        'guards'  => __DIR__ . '/../config/guard.php',
     ],
     'routing'  => [
         'module'      => Routing::class,

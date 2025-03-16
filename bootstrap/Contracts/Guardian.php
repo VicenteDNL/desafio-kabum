@@ -2,14 +2,15 @@
 
 namespace Bootstrap\Contracts;
 
-interface Guard
+interface Guardian
 {
     /**
      * Initializes an instance of Guard or retrieves an already initialized instance
      *
      * @param string $stacker location of registered guards
+     * @param string $guards
      */
-    public static function init(string $stacker): Guard;
+    public static function init(string $guards): Guardian;
 
     /**
      * Start of the execution flow of registered Guard

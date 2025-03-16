@@ -1,28 +1,28 @@
 <?php
 
-namespace Bootstrap\Modules\Guard;
+namespace Bootstrap\Modules\Guardian;
 
-use Bootstrap\Contracts\Guard as ContractsGuard;
+use Bootstrap\Contracts\Guardian as ContractsGuardian;
 use Bootstrap\Contracts\Request;
 use Bootstrap\Contracts\Route;
 use Bootstrap\Modules\Guard\Exceptions\GuardAliaseNotFoud;
 use Bootstrap\Modules\Guard\Exceptions\GuardProtectedRoute;
 
-class Guard implements ContractsGuard
+class Guardian implements ContractsGuardian
 {
-    private static Guard $instance;
-    private array $guard = [];
+    private static Guardian $instance;
+    private array $guards = [];
 
-    private function __construct(string $stacker)
+    private function __construct(string $guards)
     {
-        $this->guard = require $stacker;
+        $this->guards = require $guards;
     }
 
-    public static function init(string $stacker): Guard
+    public static function init(string $guards): Guardian
     {
 
         if (!isset(self::$instance)) {
-            self::$instance = new Guard($stacker);
+            self::$instance = new Guardian($guards);
         }
 
         return self::$instance;
@@ -38,11 +38,11 @@ class Guard implements ContractsGuard
 
         foreach ($guards as $aliase) {
 
-            if(!isset($this->guard[$aliase])) {
+            if(!isset($this->guards[$aliase])) {
                 throw new GuardAliaseNotFoud();
             }
 
-            $result = $this->guard[$aliase]::process($request);
+            $result = $this->guards[$aliase]::process($request);
 
             if($result) {
                 continue;

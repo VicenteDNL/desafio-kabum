@@ -2,7 +2,7 @@
 
 namespace Bootstrap;
 
-use Bootstrap\Contracts\Guard;
+use Bootstrap\Contracts\Guardian;
 use Bootstrap\Contracts\HandleError;
 use Bootstrap\Contracts\Middleware;
 use Bootstrap\Contracts\Request;
@@ -19,7 +19,7 @@ class Application
     private Response $response;
     private Routing $routing;
     private Middleware $middleware;
-    private Guard $guard;
+    private Guardian $guardian;
     private HandleError $handleError;
     private Database $database;
     private array $config;
@@ -32,7 +32,7 @@ class Application
         $this->initRouting();
         $this->initResponse();
         $this->initMiddleware();
-        $this->initGuard();
+        $this->initGuardian();
         $this->initHandleError();
         $this->initDataBase();
 
@@ -53,7 +53,7 @@ class Application
 
             $route = $this->routing->find($this->request);
 
-            $this->guard->start($this->request, $route);
+            $this->guardian->start($this->request, $route);
 
             $controller = new ($route->controller())($this->request);
             $action = $route->action();
@@ -146,19 +146,19 @@ class Application
 
     }
 
-    private function initGuard()
+    private function initGuardian()
     {
-        if(!class_exists($this->config['guard']['module'])) {
-            throw new Exception('config["guard"] not configured');
+        if(!class_exists($this->config['guardian']['module'])) {
+            throw new Exception('config["guardian"] not configured');
         }
 
-        $guard = $this->config['guard']['module']::init($this->config['guard']['stacker']);
+        $guardian = $this->config['guardian']['module']::init($this->config['guardian']['guards']);
 
-        if(!($guard instanceof Guard)) {
-            throw new Exception('config["guard"]["module"] is not instanceof ' . Guard::class);
+        if(!($guardian instanceof Guardian)) {
+            throw new Exception('config["guardian"]["module"] is not instanceof ' . Guardian::class);
         }
 
-        $this->guard = $guard;
+        $this->guardian = $guardian;
 
     }
 
