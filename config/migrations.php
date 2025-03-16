@@ -4,6 +4,6 @@ use Migrations\CreateTableAddress;
 use Migrations\CreateTableClients;
 
 return [
-    // CreateTableClients::class,
+    CreateTableClients::class,
     CreateTableAddress::class,
 ];
