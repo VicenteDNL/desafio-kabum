@@ -8,6 +8,7 @@ use Bootstrap\Contracts\Middleware;
 use Bootstrap\Contracts\Request;
 use Bootstrap\Contracts\Response;
 use Bootstrap\Contracts\Routing;
+use Bootstrap\Modules\Database\Database;
 use Exception;
 use Throwable;
 
@@ -20,6 +21,7 @@ class Application
     private Middleware $middleware;
     private Guard $guard;
     private HandleError $handleError;
+    private Database $database;
     private array $config;
 
     private function __construct()
@@ -32,6 +34,7 @@ class Application
         $this->initMiddleware();
         $this->initGuard();
         $this->initHandleError();
+        $this->initDataBase();
 
     }
 
@@ -172,6 +175,11 @@ class Application
 
         $this->handleError = $handleError;
 
+    }
+
+    private function initDataBase()
+    {
+        $this->database = Database::init();
     }
 }
 
