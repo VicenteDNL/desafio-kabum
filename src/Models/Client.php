@@ -6,4 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }

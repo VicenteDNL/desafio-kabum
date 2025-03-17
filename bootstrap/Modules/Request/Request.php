@@ -87,6 +87,10 @@ class Request implements ContractsRequest
     {
         $bodyParams = [];
 
+        if(in_array($this->method, ['GET', 'DELETE'])) {
+            return $bodyParams;
+        };
+
         if(str_contains($this->contentType, 'application/json')) {
             $bodyParams = json_decode(file_get_contents('php://input'), true);
 

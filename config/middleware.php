@@ -1,7 +1,7 @@
 <?php
 
-use App\Middlewares\AuthMiddleware;
+use App\Middlewares\ExampleMiddleware;
 
 return [
-    AuthMiddleware::class,
+    ExampleMiddleware::class,
 ];
