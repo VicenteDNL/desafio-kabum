@@ -1,5 +1,5 @@
 
-# Desafio Tonolucro
+# Desafio Kabum
 
 Projeto Desenvolvido para o processo seletivo Desenvolvedor(a) Fullstack SR na Kabum
 
@@ -46,3 +46,53 @@ Relacionamento Especial: O cliente pode ter 1 ou N endereços cadastrados!
 4️⃣ Design e estrutura voltados à Escalabilidade – pensando no futuro da missão.
 
 ## Instalação
+
+Para executar esse projeto é necessario o [Docker](https://www.docker.com) instalado na sua máaquina.
+
+### Passo 1
+
+Clonar projeto
+
+ ```bash
+  git clone https://github.com/VicenteDNL/desafio-kabum-api.git
+```
+
+### Passo 2
+
+Acessar o diretório
+
+ ```bash
+  cd desafio-kabum-api
+```
+
+### Passo 3
+
+Fazer uma copía do .env.example. Para facilitar a inicialização do projeto todas as variavés necessárias já estão contidas no .env.example
+
+ ```bash
+  cp .env.example .env
+```
+
+### Passo 4
+
+Iniciar os container docker.
+
+ ```bash
+  docker compose up
+```
+
+### Passo 5
+
+Criar as tabelas do banco de dados.
+
+ ```bash
+  docker exec -it desafio-api php script/run_migrate.php
+```
+
+### Passo 6 (Opcional)
+
+Popular o banco de dados.
+
+ ```bash
+  docker exec -it desafio-api php script/run_seeder.php
+```

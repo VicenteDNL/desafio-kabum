@@ -6,9 +6,6 @@ use App\Models\Address;
 use App\Models\Client;
 use Bootstrap\Modules\Controller\Controller;
 
-/**
- * TODO: verifica para que a chamada nao seja feito direto de uma classe do modulo (remover aclopamento)
- */
 use Bootstrap\Modules\Response\Response;
 use Throwable;
 

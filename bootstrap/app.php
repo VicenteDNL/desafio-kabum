@@ -12,6 +12,11 @@ use Bootstrap\Modules\Database\Database;
 use Exception;
 use Throwable;
 
+/**
+ * The core of the application, it is responsible for managing the modules attached to the application
+ *
+ * @class Application
+ */
 class Application
 {
     private static Application $instance;
@@ -27,7 +32,7 @@ class Application
     private function __construct()
     {
         $this->config = require __DIR__ . '/config.php';
-        //TODO: alterar para injecao de dependencia
+
         $this->initRequest();
         $this->initRouting();
         $this->initResponse();
@@ -120,7 +125,6 @@ class Application
             throw new Exception('config["response"] not configured');
         }
 
-        //TODO: verificar seguranca do dado de httpaccept
         $response = new ($this->config['response'])('', $this->request->getHttpAccept(), 200);
 
         if(!($response instanceof Response)) {

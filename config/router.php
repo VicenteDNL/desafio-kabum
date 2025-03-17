@@ -1,7 +1,9 @@
 <?php
 
 /**
- * verifica para que a chamada nao seja feito direto de uma classe do modulo (remover aclopamento)
+ *
+ * Application routes configuration file
+ *
  */
 
 use App\Controllers\AddressController;

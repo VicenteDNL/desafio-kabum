@@ -5,9 +5,6 @@ namespace App\Controllers;
 use App\Models\User;
 use Bootstrap\Modules\Controller\Controller;
 
-/**
- * TODO: verifica para que a chamada nao seja feito direto de uma classe do modulo (remover aclopamento)
- */
 use Bootstrap\Modules\Response\Response;
 use DateTimeImmutable;
 use Exception;
@@ -19,7 +16,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        //TODO: Validar parametros
 
         $credentials = $this->request->getBodyParams(['email', 'password']);
 
@@ -46,7 +42,6 @@ class AuthController extends Controller
 
     public function register()
     {
-        //TODO: Validar parametros
 
         $credentials = $this->request->getBodyParams(['name', 'email', 'password', 'confirmPassword']);
 
@@ -73,7 +68,6 @@ class AuthController extends Controller
 
     private function jtw()
     {
-        //TODO:: Mover logica de autenticacao/ geracao jwt para o modulo
         $secretKey = $_ENV['PRIVATE_KEY'];
         $issuedAt = new DateTimeImmutable();
         $expire = $issuedAt->modify('+1 hour')->getTimestamp();

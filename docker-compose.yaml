@@ -25,6 +25,8 @@ services:
     volumes:
       - ./:/var/www
     restart: unless-stopped
+    depends_on:
+      - desafio-db
     networks:
       - desafio-kabum
   desafio-db:

@@ -62,7 +62,7 @@ class HandleError implements ContractsHandleError
         return new Response(
             $result,
             $request->getHttpAccept(),
-            is_numeric($e->getCode()) ? $e->getCode() : 500 //TODO: codigo de erro e diferente de codigo http
+            is_numeric($e->getCode()) ? $e->getCode() : 500
         );
     }
 }

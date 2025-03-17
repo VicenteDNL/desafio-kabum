@@ -8,6 +8,11 @@ use Bootstrap\Modules\Routing\Exceptions\RouterActionNotExist;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerIsNotInstance;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerNotExist;
 
+/**
+ *
+ * Exception message customizer
+ *
+ */
 return[
 
     GuardProtectedRoute::class => [

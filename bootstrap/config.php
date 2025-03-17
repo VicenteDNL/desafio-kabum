@@ -9,6 +9,9 @@ use Bootstrap\Modules\Request\Request;
 use Bootstrap\Modules\Response\Response;
 use Bootstrap\Modules\Routing\Routing;
 
+/**
+ * File to register application modules
+ */
 return [
     'request'     => Request::class,
     'response'    => Response::class,
