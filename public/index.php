@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: http://localhost:3000');
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
