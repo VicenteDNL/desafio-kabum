@@ -11,4 +11,4 @@ $dotenv->load();
 
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-$app->dispath();
+$app->dispatch();

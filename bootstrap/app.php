@@ -52,7 +52,7 @@ class Application
         return self::$instance;
     }
 
-    public function dispath(): void
+    public function dispatch(): void
     {
         try {
 
