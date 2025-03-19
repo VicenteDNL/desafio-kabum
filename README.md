@@ -78,7 +78,7 @@ Fazer uma copía do .env.example. Para facilitar a inicialização do projeto to
 Iniciar os container docker.
 
  ```bash
-  docker compose up
+  docker compose up -d
 ```
 
 ### Passo 5
