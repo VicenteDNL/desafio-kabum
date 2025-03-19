@@ -94,5 +94,5 @@ Criar as tabelas do banco de dados.
 Popular o banco de dados.
 
  ```bash
-  docker exec -it desafio-api php script/run_seeder.php
+  docker exec -it desafio-api php script/run_seeders.php
 ```
