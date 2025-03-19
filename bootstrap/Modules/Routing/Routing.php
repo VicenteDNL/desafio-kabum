@@ -54,15 +54,14 @@ class Routing implements ContractsRouting
         self::openGroup($aliases);
         $groupRoutes();
         self::closeGroup();
-        return;
     }
 
-    private static function openGroup(array $aliases)
+    private static function openGroup(array $aliases): void
     {
         self::$guardsMemory = $aliases;
     }
 
-    private static function closeGroup()
+    private static function closeGroup(): void
     {
         self::$guardsMemory = [];
     }

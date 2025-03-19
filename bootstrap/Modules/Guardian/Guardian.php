@@ -34,10 +34,6 @@ class Guardian implements ContractsGuardian
     {
         $guards = $route->guards();
 
-        if(empty($guards)) {
-            return;
-        }
-
         foreach ($guards as $aliase) {
 
             if(!isset($this->guards[$aliase])) {

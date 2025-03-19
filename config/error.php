@@ -3,6 +3,7 @@
 use Bootstrap\Modules\Guardian\Exceptions\GuardAliaseNotFoud;
 use Bootstrap\Modules\Guardian\Exceptions\GuardIsNotInstance;
 use Bootstrap\Modules\Guardian\Exceptions\GuardProtectedRoute;
+use Bootstrap\Modules\Request\Exceptions\BadRequest;
 use Bootstrap\Modules\Routing\Exceptions\RouteNotFound;
 use Bootstrap\Modules\Routing\Exceptions\RouterActionNotExist;
 use Bootstrap\Modules\Routing\Exceptions\RouterControllerIsNotInstance;
@@ -14,7 +15,10 @@ use Bootstrap\Modules\Routing\Exceptions\RouterControllerNotExist;
  *
  */
 return[
-
+    BadRequest::class => [
+        'human'  => '',
+        'system' => '',
+    ],
     GuardProtectedRoute::class => [
         'human'  => '',
         'system' => '',
